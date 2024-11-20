@@ -8,7 +8,7 @@ class BookBase(BaseModel):
 class BookCreate(BookBase):
     pass
 
-class Book(BookBase):
+class BookSchema(BookBase):
     id: int
     user_id: int
 
