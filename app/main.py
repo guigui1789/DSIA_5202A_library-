@@ -12,7 +12,7 @@ from .database.database import SessionLocal, engine, Base
 from .models.user import User
 from .models.book import Book
 from .schemas.user_schema import UserCreate, User as UserSchema
-from .schemas.book_schema import BookCreate, Book
+from .schemas.book_schema import BookCreate, Book, BookSchema
 
 app = FastAPI()
 
