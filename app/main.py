@@ -1,12 +1,13 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
+
+from .database.database import SessionLocal, engine, Base
 from .models.user import User
 from .schemas.user_schema import UserCreate, User as UserSchema
-from .database import SessionLocal, engine, Base
 
 app = FastAPI()
 
-# Création des tables dans la base de données
+# Création des tables
 Base.metadata.create_all(bind=engine)
 
 # Dépendance pour obtenir une session de base de données
