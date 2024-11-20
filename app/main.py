@@ -65,3 +65,7 @@ def read_books(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 @app.get("/users/me")
 def read_users_me(current_user: str = Depends(get_current_user)):
     return {"username": current_user}
+
+@app.get("/protected-endpoint")
+def read_protected(token: str = Depends(oauth2_scheme)):
+    return {"message": "You are authorized", "token": token}
