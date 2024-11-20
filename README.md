@@ -32,7 +32,7 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
 1. Clonez le dépôt :
    ```bash
-   git clone <URL_DU_DEPOT>
+   git clone https://github.com/guigui1789/DSIA_5202A_pers_library
    cd DSIA_5202A_pers_library
 
 2. Démarrez les services avec Docker Compose :
