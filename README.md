@@ -48,10 +48,11 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
     Rendez-vous sur http://localhost:8000/docs.
 
 ## Endpoints
-- **Publics**
+**Publics**
 - POST /token : Récupérer un token JWT en fournissant un nom d'utilisateur et un mot de passe.
 - GET / : Endpoint de test de connexion.
-- **Protégés (JWT requis)**
+
+**Protégés (JWT requis)**
 - GET /books/ : Récupérer la liste des livres.
 - POST /books/ : Ajouter un livre.
 - GET /books/{book_id} : Récupérer un livre par ID.
