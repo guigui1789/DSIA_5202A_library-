@@ -1,12 +1,3 @@
-# DSIA_5202A_pers_library
-
-http://localhost:8000/docs
-
-bearer
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMSIsImV4cCI6MTczMjA4MTY0MX0.OLB4Da4MyruIeLYM3u6zYak9wNsDLVkQ3-cwDvMDh0I
-
-
-
 # Personal Library API
 
 ## Description
@@ -44,9 +35,9 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
 2. Démarrez les services avec Docker Compose :
    ```bash
-   docker-compose up --build
+   docker-compose up --build ``
 
-   - Cela construira et démarrera :
+   Cela construira et démarrera :
       - Le service API écrit en Python avec FastAPI.
       - Une base de données PostgreSQL.
 
