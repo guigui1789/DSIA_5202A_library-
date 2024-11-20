@@ -48,7 +48,10 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid username or password",)
+            detail="Invalid username or password",
+        )
+    access_token = create_access_token(data={"sub": user["username"]})
+    return {"access_token": access_token, "token_type": "bearer"}
 
 @app.get("/")
 def read_root():
@@ -60,5 +63,5 @@ def read_books(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return books
 
 @app.get("/users/me")
-def read_users_me(token: str = Depends(oauth2_scheme)):
-    return {"token": token}
+def read_users_me(current_user: str = Depends(get_current_user)):
+    return {"username": current_user}
