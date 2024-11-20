@@ -8,6 +8,8 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    environment:
+      DATABASE_URL: postgresql://user:password@db:5432/library_db
   db:
     image: postgres:latest
     environment:
@@ -16,3 +18,6 @@ services:
       POSTGRES_PASSWORD: password
     volumes:
       - ./data/db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
