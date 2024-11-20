@@ -46,40 +46,18 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
    ```bash
    docker-compose up --build
 
-   Cela construira et démarrera :
+   - Cela construira et démarrera :
       - Le service API écrit en Python avec FastAPI.
       - Une base de données PostgreSQL.
 
 3. Une fois démarré, accédez à la documentation interactive de l'API :
     Rendez-vous sur http://localhost:8000/docs.
 
-## Structure du Projet
-
-DSIA_5202A_pers_library/
-├── app/
-│   ├── auth.py                  # Gestion de l'authentification JWT
-│   ├── database/
-│   │   ├── database.py          # Configuration de la base de données avec SQLAlchemy
-│   ├── models/
-│   │   ├── user.py              # Modèle utilisateur
-│   │   ├── book.py              # Modèle livre
-│   ├── schemas/
-│   │   ├── user_schema.py       # Schéma utilisateur
-│   │   ├── book_schema.py       # Schéma livre
-│   ├── main.py                  # Point d'entrée de l'application FastAPI
-│   ├── test_main.py             # Tests unitaires pour l'API
-├── data/
-│   ├── db/                      # Fichiers de données PostgreSQL
-├── Dockerfile                   # Dockerfile pour construire l'image de l'API
-├── docker-compose.yml           # Configuration Docker Compose
-├── requirements.txt             # Dépendances Python
-
-
 ## Endpoints
-**Publics**
+- **Publics**
 - POST /token : Récupérer un token JWT en fournissant un nom d'utilisateur et un mot de passe.
 - GET / : Endpoint de test de connexion.
-**Protégés (JWT requis)**
+- **Protégés (JWT requis)**
 - GET /books/ : Récupérer la liste des livres.
 - POST /books/ : Ajouter un livre.
 - GET /books/{book_id} : Récupérer un livre par ID.
