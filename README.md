@@ -60,21 +60,21 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 ## Difficultés rencontrées
 La réalisation du projet a présenté plusieurs défis, notamment :
 
-- **Structure du projet et gestion des imports :**
+**Structure du projet et gestion des imports :**
 
 - La structuration des fichiers et des dossiers (modèles, schémas, configuration de la base de données, etc.) a nécessité une attention particulière pour garantir une organisation claire et éviter des problèmes d'importation circulaire ou manquante.
 - Certaines erreurs, comme ImportError, ont été rencontrées et corrigées en revoyant les chemins relatifs et en adoptant une structure modulaire.
 
-- **Connexion à la base de données avec Docker :**
+**Connexion à la base de données avec Docker :**
 
 - L'intégration de PostgreSQL avec Docker a posé quelques problèmes de connexion au début, notamment lorsque l'API démarrait avant que la base de données ne soit totalement prête.
 - La solution a consisté à ajouter une logique de "retry" dans le code pour attendre que PostgreSQL soit disponible.
 
-**- Authentification et sécurité des endpoints :**
+**Authentification et sécurité des endpoints :**
 
 - L'implémentation de l'authentification avec JWT a nécessité une compréhension approfondie de la sécurisation des endpoints, notamment pour protéger les routes sensibles et gérer les erreurs liées aux tokens invalides ou expirés.
 
-**- Erreurs HTTP et gestion des exceptions :**
+**Erreurs HTTP et gestion des exceptions :**
 
 L'ajout d'une gestion complète des erreurs HTTP pour éviter les réponses génériques (500) a demandé un effort pour implémenter des réponses personnalisées et pertinentes (404, 401, 403, etc.).
 
