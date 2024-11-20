@@ -142,11 +142,11 @@ def get_books(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     return books
 
 # GET a single book by ID
-@app.get("/books/{book_id}", response_model=Book)
+@app.get("/books/{book_id}", response_model=BookSchema)
 def get_book(book_id: int, db: Session = Depends(get_db)):
-    book = db.query(BookModel).filter(BookModel.id == book_id).first()
+    book = db.query(Book).filter(Book.id == book_id).first()
     if not book:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Book not found")
+        raise HTTPException(status_code=404, detail="Book not found")
     return book
 
 # POST a new book
