@@ -2,6 +2,10 @@ from fastapi import FastAPI, Depends, HTTPException, APIRouter, Security, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from typing import List 
+from jose import JWTError
+from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from .auth import verify_password, create_access_token, get_password_hash, authenticate_user, get_current_user, fake_users_db
 from .database.database import SessionLocal, engine, Base
@@ -67,5 +71,66 @@ def read_users_me(current_user: str = Depends(get_current_user)):
     return {"username": current_user}
 
 @app.get("/protected-endpoint")
-def read_protected(token: str = Depends(oauth2_scheme)):
-    return {"message": "You are authorized", "token": token}
+async def read_protected_endpoint(current_user: User = Depends(get_current_user)):
+    if not current_user:
+        raise HTTPException(
+            status_code=401, 
+            detail="Not authenticated. Please provide a valid token."
+        )
+    return {"message": "You are authorized"}
+
+@app.get("/admin/")
+async def admin_endpoint(current_user: User = Depends(get_current_user)):
+    if current_user.role != "admin":
+        raise HTTPException(
+            status_code=403, 
+            detail="Access forbidden. You do not have the required permissions."
+        )
+    return {"message": "Welcome, admin!"}
+
+@app.get("/books/{book_id}", response_model=BookSchema)
+async def read_book(book_id: int, db: Session = Depends(get_db)):
+    book = db.query(Book).filter(Book.id == book_id).first()
+    if book is None:
+        raise HTTPException(
+            status_code=404, 
+            detail=f"Book with ID {book_id} not found."
+        )
+    return book
+
+@app.exception_handler(StarletteHTTPException)
+async def http_exception_handler(request, exc):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"detail": exc.detail},
+    )
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request, exc):
+    return JSONResponse(
+        status_code=422,
+        content={"detail": exc.errors(), "body": exc.body},
+    )
+
+def get_current_user(token: str = Depends(oauth2_scheme)):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None:
+            raise HTTPException(
+                status_code=401, 
+                detail="Invalid token. Username not found."
+            )
+        token_data = TokenData(username=username)
+    except JWTError:
+        raise HTTPException(
+            status_code=401, 
+            detail="Invalid token."
+        )
+    user = get_user(fake_users_db, username=token_data.username)
+    if user is None:
+        raise HTTPException(
+            status_code=401, 
+            detail="User not found."
+        )
+    return user
