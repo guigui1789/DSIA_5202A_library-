@@ -7,6 +7,6 @@ python-jose[cryptography]==3.3.0
 python-multipart==0.0.5
 alembic==1.6.5
 python-jose[cryptography]
-bcrypt==4.0.1
-passlib[bcrypt]==1.7.4
-psycopg2-binary==2.9.6
+bcrypt
+passlib[bcrypt]
+psycopg2-binary
