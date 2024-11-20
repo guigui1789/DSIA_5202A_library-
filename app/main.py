@@ -8,9 +8,9 @@ from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from .auth import verify_password, create_access_token, get_password_hash, authenticate_user, get_current_user, fake_users_db
-from .database.database import SessionLocal, engine, Base
+from .database.database import SessionLocal, engine, Base, get_db
 from .models.user import User
-from .models.book import Book
+from .models.book import Book as BookModel
 from .schemas.user_schema import UserCreate, User as UserSchema
 from .schemas.book_schema import BookCreate, Book
 
@@ -134,3 +134,36 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
             detail="User not found."
         )
     return user
+
+# GET all books
+@app.get("/books/", response_model=List[Book])
+def get_books(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+    books = db.query(BookModel).offset(skip).limit(limit).all()
+    return books
+
+# GET a single book by ID
+@app.get("/books/{book_id}", response_model=Book)
+def get_book(book_id: int, db: Session = Depends(get_db)):
+    book = db.query(BookModel).filter(BookModel.id == book_id).first()
+    if not book:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Book not found")
+    return book
+
+# POST a new book
+@app.post("/books/", response_model=Book, status_code=status.HTTP_201_CREATED)
+def create_book(book: BookCreate, db: Session = Depends(get_db)):
+    new_book = BookModel(**book.dict())
+    db.add(new_book)
+    db.commit()
+    db.refresh(new_book)
+    return new_book
+
+# DELETE a book
+@app.delete("/books/{book_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_book(book_id: int, db: Session = Depends(get_db)):
+    book = db.query(BookModel).filter(BookModel.id == book_id).first()
+    if not book:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Book not found")
+    db.delete(book)
+    db.commit()
+    return {"message": "Book deleted successfully"}
