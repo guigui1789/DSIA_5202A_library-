@@ -75,24 +75,24 @@ DSIA_5202A_pers_library/
 ├── requirements.txt             # Dépendances Python
 
 
-Endpoints
-Publics
-POST /token : Récupérer un token JWT en fournissant un nom d'utilisateur et un mot de passe.
-GET / : Endpoint de test de connexion.
-Protégés (JWT requis)
-GET /books/ : Récupérer la liste des livres.
-POST /books/ : Ajouter un livre.
-GET /books/{book_id} : Récupérer un livre par ID.
-DELETE /books/{book_id} : Supprimer un livre par ID.
+## Endpoints
+**Publics**
+- POST /token : Récupérer un token JWT en fournissant un nom d'utilisateur et un mot de passe.
+- GET / : Endpoint de test de connexion.
+**Protégés (JWT requis)**
+- GET /books/ : Récupérer la liste des livres.
+- POST /books/ : Ajouter un livre.
+- GET /books/{book_id} : Récupérer un livre par ID.
+- DELETE /books/{book_id} : Supprimer un livre par ID.
 
-Technologies Utilisées
-Framework API : FastAPI
-Base de données : PostgreSQL
-ORM : SQLAlchemy
-Authentification : JWT
-Gestion des conteneurs : Docker et Docker Compose
+## Technologies Utilisées
+- Framework API : FastAPI
+- Base de données : PostgreSQL
+- ORM : SQLAlchemy
+- Authentification : JWT
+- Gestion des conteneurs : Docker et Docker Compose
 
-Auteur
-Votre Nom - Étudiant E5
-Contact : votre-email@example.com
-
+## Auteur
+Quentin Guigui & Quentin Lebouc - E5 DSIA
+Contact : quentin.guigui@edu.esiee.fr
+          quentin.lebouc@edu.esiee.fr
