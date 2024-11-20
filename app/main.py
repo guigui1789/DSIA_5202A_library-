@@ -1,9 +1,9 @@
-from fastapi import FastAPI, Depends, HTTPException, APIRouter, Security
+from fastapi import FastAPI, Depends, HTTPException, APIRouter, Security, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from typing import List 
 
-from .auth import verify_password, create_access_token, get_password_hash
+from .auth import verify_password, create_access_token, get_password_hash, authenticate_user, get_current_user, fake_users_db
 from .database.database import SessionLocal, engine, Base
 from .models.user import User
 from .models.book import Book
@@ -44,11 +44,11 @@ def create_book(book: BookCreate, db: Session = Depends(get_db)):
 
 @app.post("/token")
 def login(form_data: OAuth2PasswordRequestForm = Depends()):
-    user_db = fake_users_db.get(form_data.username)
-    if not user_db or not verify_password(form_data.password, user_db['hashed_password']):
-        raise HTTPException(status_code=400, detail="Incorrect username or password")
-    access_token = create_access_token(data={"sub": user_db["username"]})
-    return {"access_token": access_token, "token_type": "bearer"}
+    user = authenticate_user(fake_users_db, form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid username or password",)
 
 @app.get("/")
 def read_root():
