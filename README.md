@@ -71,6 +71,5 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 - Gestion des conteneurs : Docker et Docker Compose
 
 ## Auteur
-Quentin Guigui & Quentin Lebouc - E5 DSIA
-Contact : quentin.guigui@edu.esiee.fr
+Quentin Guigui & Quentin Lebouc - E5 DSIA                    Contact : quentin.guigui@edu.esiee.fr
           quentin.lebouc@edu.esiee.fr
