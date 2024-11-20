@@ -35,7 +35,7 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
 2. Démarrez les services avec Docker Compose :
    ```bash
-   docker-compose up --build ``
+   docker-compose up --build ``` 
 
    Cela construira et démarrera :
       - Le service API écrit en Python avec FastAPI.
