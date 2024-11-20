@@ -1,3 +1,6 @@
 # DSIA_5202A_pers_library
 
 http://localhost:8000/docs
+
+bearer
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMSIsImV4cCI6MTczMjA4MTY0MX0.OLB4Da4MyruIeLYM3u6zYak9wNsDLVkQ3-cwDvMDh0I
